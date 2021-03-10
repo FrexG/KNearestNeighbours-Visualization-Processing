@@ -1,3 +1,17 @@
+
+/* 
+    @author: Fraol Gelana
+    @Organization:Artificial Intelligence Center
+    @Date:March,2021
+*/
+
+/*
+#########################
+#                       #
+#     RUN THIS FILE     #
+#                       #
+#########################
+*/
 DataPoint dp;
 KNN knn;
 void setup(){
