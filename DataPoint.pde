@@ -1,14 +1,25 @@
+/* 
+    @author: Fraol Gelana
+    @Organization:Artificial Intelligence Center
+    @Date:March,2021
+*/
+
 class DataPoint{
-  private float x;
+  private float x;  
   private float y;
-  private int INITIAL_SIZE = 50;
+  private int INITIAL_SIZE = 50; // Initial size of each cluster
   
-  private ArrayList<PVector> cluster_One = new ArrayList<PVector>(50);
+  // Create three clusters
+  private ArrayList<PVector> cluster_One = new ArrayList<PVector>(50);  
   private ArrayList<PVector> cluster_Two = new ArrayList<PVector>(50);
   private ArrayList<PVector> cluster_Three = new ArrayList<PVector>(50);
   
   
   public DataPoint(){
+  // Initialize each cluster with random value 
+  // within a non-Intersecting range of numbers
+  // in the coordinate plane
+  
     for(int i =0;i < INITIAL_SIZE;i++){      
         x = random(20,100);
         y = random(20,100);
@@ -27,6 +38,7 @@ class DataPoint{
   }
   
   public void show(){
+  // Draw the three clusters
     stroke(0);
     for(PVector p : cluster_One){    
       fill(255,0,0);
@@ -56,11 +68,12 @@ class DataPoint{
   public ArrayList<PVector> getClusterThree(){
     return cluster_Three;
   }
-  public void addToCluster(int index,float x,float y){
-    if(index == 0){
+  // Add a new point to one of the clusters
+  public void addToCluster(int cluster,float x,float y){
+    if(cluster == 0){
       cluster_One.add(new PVector(x,y));
     }
-    else if(index == 1){
+    else if(cluster == 1){
       cluster_Two.add(new PVector(x,y));
     }
     else{
