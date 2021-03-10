@@ -1,3 +1,8 @@
+/* 
+    @author: Fraol Gelana
+    @Organization:Artificial Intelligence Center
+    @Date:March,2021
+*/
 
 class KNN{
   DataPoint dp;
@@ -7,12 +12,13 @@ class KNN{
   private FloatList arrayOfDistance = new FloatList(3);
   
   public KNN(DataPoint dp,float xMouse,float yMouse){
-    this.dp = dp;
-    this.xMouse = xMouse;
-    this.yMouse = yMouse;
+    this.dp = dp; // Initialize DataPoint
+    this.xMouse = xMouse; // mouse click X position
+    this.yMouse = yMouse; // mouse click Y position
     ClussterCenter();
   }
   
+  // Calculate the center(Mean) of each cluster
   private void ClussterCenter(){
     int count = 2;
     ArrayList<PVector> c;
@@ -47,10 +53,13 @@ class KNN{
     }
     PVector center = new PVector(xSum/numOfPoints,ySum/numOfPoints);
     
-    clussterCenter[index] = center;
+    clussterCenter[index] = center; // Store the center of each cluster into an array
   }
-  
+
   public void distanceToCenter(){
+    // Calculate the distance from the center of each 
+    // cluster to the new data point
+    
     for(int i = 0;i<clussterCenter.length;i++){
       PVector p = clussterCenter[i];
       float d = dist(p.x,p.y,xMouse,yMouse);
@@ -62,6 +71,7 @@ class KNN{
       addToCluster(i,d);
      }  
      float minValue = arrayOfDistance.min();
+     
      for(int i = 0;i<=arrayOfDistance.size();i++){
        if(arrayOfDistance.get(i) == minValue){
          dp.addToCluster(i,xMouse,yMouse);
@@ -74,8 +84,12 @@ class KNN{
   
   public void addToCluster(int index,float d){
     ArrayList<PVector> c;
-    float sumOfDistance = 0;
-    float K = 5;
+    float sumOfDistance = 0; // Sum of distance from K points in the cluster
+                             // to the new datapoint.
+                             // The best cluster will be the one that minimizes
+                             // the value of this variable
+                             
+    float K = 5;              // Number of points in cluster ( Neighbours )
       if(index == 0){
         c = dp.getClusterOne();
       }
@@ -85,6 +99,10 @@ class KNN{
       else {
         c = dp.getClusterThree();
       }
+        // The K points will be choosen, such that the distance
+        // from the new point to the K points (individually) is less 
+        // than the distance from the new point to the center of the
+        // corresponding cluster
         
         for(PVector p : c){
           float distance = dist(p.x,p.y,xMouse,yMouse);
